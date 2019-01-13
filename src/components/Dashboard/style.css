@@ -2,3 +2,7 @@
 	background-color: darkblue;
 	color: aliceblue;
 }
+
+.task__element.TaskIsDone {
+	background-color: green;
+}

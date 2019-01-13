@@ -1,40 +1,66 @@
 import React, { Component } from 'react';
 import './style.css';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
+
+import tasks from '../../tasks';
 
 class Dashboard extends Component {
+	
+	constructor(props) {
+		super(props);
+		
+		this.state = {
+			tasks: tasks
+		};
+	}
+	
+	onTaskIsDoneHendler = (id) => {
+		const {tasks} = this.state;
+		tasks.map((task) => {return(task.id === id)?task.status=true:null})
+		
+		this.setState({
+			tasks: tasks
+		})
+	};
+	
+	onRemoveTaskHendler = (id) => {
+		const {tasks} = this.state;
+		tasks.map((task) => {return(task.id === id)?task.status=true:null})
+		
+		this.setState({
+			tasks: tasks
+		})
+	};
+	
 	render() {
+		
+		const {tasks} = this.state;
+		
+		const html = tasks.map( (task) => {
+			const isTaskDoneClass = task.status?"TaskIsDone":"";
+			return (
+				<div key={task.id} className={`task__element col-12 col-md-8 col-lg-7 d-flex align-items-start py-2 ${isTaskDoneClass}`}>
+					<div className=" col-2 task__title">
+						{task.title}
+					</div>
+					<div className="col-8 task__desc">
+						{task.desc}
+					</div>
+					<div className="col-2 task__controls d-flex justify-content-end">
+						{task.status?"":<button className="btn btn-outline-success" onClick={() => {this.onTaskIsDoneHendler(task.id)}}><FontAwesomeIcon icon={faCheck}/></button>}
+						
+						<button className="btn btn-outline-danger" onClick={this.onRemoveTaskHendler}><FontAwesomeIcon icon={faTrashAlt}/></button>
+					</div>
+				</div>
+				)
+		});
+		
 		return(
 			<div className="row my-5">
 				<div className="container">
 					<div className="row flex-column align-items-center">
-						<div className="task__element col-12 col-md-8 col-lg-7 d-flex align-items-start py-2">
-							<div className=" col-2 task__title">
-								task__title
-							</div>
-							<div className="col-8 task__desc">
-								task__desc
-							</div>
-							<div className="col-2 task__controls d-flex justify-content-end">
-								<button className="btn btn-outline-success"><FontAwesomeIcon icon={faCheck}/></button>
-								<button className="btn btn-outline-danger"><FontAwesomeIcon icon={faTrashAlt}/></button>
-							</div>
-						</div>
-						<div className="task__element col-12 col-md-8 col-lg-7 d-flex align-items-start py-2">
-							<div className=" col-2 task__title">
-								task__title
-							</div>
-							<div className="col-8 task__desc">
-								task__desc task__desctask __desctask__ desctask__desctask__
-								desctask__desctask __desctask__ desctask__desc task__desctask__
-								desctask__desctask__desctask__desc task__desc  task__desc task__desc task__desc
-							</div>
-							<div className="col-2 task__controls d-flex justify-content-end">
-								<button className="btn btn-outline-success"><FontAwesomeIcon icon={faCheck}/></button>
-								<button className="btn btn-outline-danger"><FontAwesomeIcon icon={faTrashAlt}/></button>
-							</div>
-						</div>
+						{html}
 					</div>
 				</div>
 			</div>
