@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
+
 import './style.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +28,9 @@ class Dashboard extends Component {
 	
 	onRemoveTaskHendler = (id) => {
 		const {tasks} = this.state;
-		tasks.map((task) => {return(task.id === id)?task.status=true:null})
+		_.remove(tasks, function (task) {
+			return task.id === id;
+		});
 		
 		this.setState({
 			tasks: tasks
@@ -50,7 +54,7 @@ class Dashboard extends Component {
 					<div className="col-2 task__controls d-flex justify-content-end">
 						{task.status?"":<button className="btn btn-outline-success" onClick={() => {this.onTaskIsDoneHendler(task.id)}}><FontAwesomeIcon icon={faCheck}/></button>}
 						
-						<button className="btn btn-outline-danger" onClick={this.onRemoveTaskHendler}><FontAwesomeIcon icon={faTrashAlt}/></button>
+						<button className="btn btn-outline-danger" onClick={() => {this.onRemoveTaskHendler(task.id)}}><FontAwesomeIcon icon={faTrashAlt}/></button>
 					</div>
 				</div>
 				)
