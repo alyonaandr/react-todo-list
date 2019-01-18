@@ -8,7 +8,7 @@ export default [
 		id: 1,
 		title: "Make coffee",
 		desc: "On coffee machine",
-		status: true
+		status: false
 	},
 	{
 		id: 3,

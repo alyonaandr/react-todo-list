@@ -1,8 +1,9 @@
 .task__element {
-	background-color: darkblue;
+	background-color: #0a2661;
 	color: aliceblue;
 }
 
 .task__element.TaskIsDone {
-	background-color: green;
+	background-color: #1f834c;
+	text-decoration: line-through;
 }
