@@ -5,6 +5,7 @@ import './style.css';
 
 import tasks from '../../tasks';
 import TaskElement from "../TaskElement";
+import NoTask from "../NoTask";
 
 class Dashboard extends Component {
 	
@@ -40,13 +41,19 @@ class Dashboard extends Component {
 		
 		const {tasks} = this.state;
 		
-		const html = tasks.map( (task) =>
-			<TaskElement
-				key={task.id}
-				task={task}
-				onTaskIsDoneHandler={this.onTaskIsDoneHandler}
-				onRemoveTaskHandler={this.onRemoveTaskHandler}
-			/>);
+		let html = null;
+		
+		if(tasks.length === 0) {
+			html = <NoTask/>
+		} else {
+			html = tasks.map( (task) =>
+				<TaskElement
+					key={task.id}
+					task={task}
+					onTaskIsDoneHandler={this.onTaskIsDoneHandler}
+					onRemoveTaskHandler={this.onRemoveTaskHandler}
+				/>);
+		}
 		
 		return(
 			<div className="row my-5">
