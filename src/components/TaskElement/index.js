@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import './style.css';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrashAlt, faCheck } from '@fortawesome/free-solid-svg-icons';
 
